@@ -1,42 +1,41 @@
 "use client"
 import React from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import {  Layout, Menu, theme,Typography  } from 'antd';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
+const { Title } = Typography;
 const { Header, Content, Footer } = Layout;
 
-const Navbar: React.FC = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+const Navbar = ({items}:{items:{key:number,label:string,href:string}[]}) => {
+const pathname=usePathname()
 
   return (
     <Layout className="layout">
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <div className="demo-logo" />
-        <Menu
+      <Header className="flex items-center">
+      <Content>
+          <Link href="/">
+            <Title level={3}
+              className='text-white'
+            >
+              Doctors Portal
+            </Title>
+          </Link>
+        </Content>
+        <Menu disabledOverflow
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
-          items={new Array(15).fill(null).map((_, index) => {
-            const key = index + 1;
-            return {
-              key,
-              label: `nav ${key}`,
-            };
-          })}
-        />
+          selectedKeys={[pathname]}
+        >
+          {items?.map((item) => (
+            <Menu.Item key={item.href}>
+              <Link href={item.href}>{item.label}</Link>
+            </Menu.Item>
+          ))}
+ 
+        </Menu>
       </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-content" style={{ background: colorBgContainer }}>
-          Content
-        </div>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+
     </Layout>
   );
 };
