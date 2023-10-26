@@ -1,16 +1,14 @@
 import Navbar from '@/components/ui/Navbar/Navbar'
+import AdminHeader from '@/components/view/Header/AdminHeader'
 import React from 'react'
 
-const AdminLayout = () => {
-    const items=[
-        {key:1, label:"Home", href:'/'},
-        {key:1, label:"About Us", href:'about-us'},
-        {key:1, label:"Contact Us", href:'/contact-us'},
-    ]
+const AdminLayout = ({children}:{children:React.ReactNode}) => {
+
   return (
     <div>
-          <Navbar items={items}/>
-        AdminLayout
+         
+      <AdminHeader/>
+      {children}
         </div>
   )
 }

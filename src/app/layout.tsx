@@ -4,6 +4,7 @@ import './globals.css'
 
 import Providers from '@/lib/Providers'
 import React from 'react'
+import PublicHeader from '@/components/view/Header/PublicHeader'
 
 
 
@@ -14,7 +15,7 @@ export default function RootLayout({children}:{children:React.ReactNode}) {
           <Providers >
        
       <body >
-    
+       
         {children}
       </body>
 

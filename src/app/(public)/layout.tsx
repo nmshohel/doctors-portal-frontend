@@ -1,8 +1,12 @@
+import PublicHeader from '@/components/view/Header/PublicHeader'
 import React from 'react'
 
-const PublicLayout = () => {
+const PublicLayout = ({children}:{children:React.ReactNode}) => {
   return (
-    <div>PublicLayout</div>
+    <div>
+      <PublicHeader/>
+      {children}
+      </div>
   )
 }
 
