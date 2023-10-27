@@ -1,15 +1,22 @@
-import Navbar from '@/components/ui/Navbar/Navbar'
-import React from 'react'
 
-const AdminHeader = () => {
-    const items=[
-        {key:1, label:"Admins", href:'/admins'},
-        {key:2, label:"My Profile", href:'/admins/my-profile'},
-      
-    ]
+import Navbar from "@/components/ui/Navbar/Navbar";
+
+
+const AdminHeader = async () => {
+  const items = [
+    { key: "1", label: "Admins", href: "/admins" },
+    { key: "2", label: "My Profile", href: "/admins/my-profile" },
+  ];
+
   return (
-    <Navbar items={items}/>
-  )
-}
+    <>
+      <Navbar
+        items={items}
+        hasSider
+       
+      />
+    </>
+  );
+};
 
-export default AdminHeader
+export default AdminHeader;

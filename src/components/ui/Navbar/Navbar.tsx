@@ -1,38 +1,70 @@
-"use client"
-import React, { useState } from 'react';
-import {  Button, Drawer, Layout, Menu, theme,Typography  } from 'antd';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+"use client";
+import { useAppDispatch } from "@/redux/hooks";
+
 import { MenuOutlined } from "@ant-design/icons";
+import { Button, Drawer, Layout, Menu, Typography } from "antd";
 
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+const { Header, Content } = Layout;
 const { Title } = Typography;
-const { Header, Content, Footer } = Layout;
 
-const Navbar = ({items}:{items:{key:number,label:string,href:string}[]}) => {
-const pathname=usePathname()
-const [open, setOpen] = useState(false);
-const showDrawer = () => {
-  setOpen(true);
-};
+const Navbar = ({
+  items,
+  hasSider,
+ 
+}: {
+  items: { key: string; label: string; href: string }[];
+  hasSider?: boolean;
 
-const onClose = () => {
-  setOpen(false);
-};
+}) => {
+
+  const pathname = usePathname();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Layout className="layout">
       <Header className="flex items-center">
-      <Content>
+        {hasSider && (
+          <Button
+            type="primary"
+            className="lg:hidden"
+            // onClick={() => {
+            //   dispatch(showSidebarDrawer());
+            // }}
+          >
+            <MenuOutlined />
+          </Button>
+        )}
+        <Content>
           <Link href="/">
-            <Title level={3}
-              className='text-white'
+            <Title
+              className={`m-0 text-white ${
+                hasSider && "text-center lg:text-left"
+              }`}
             >
               Doctors Portal
             </Title>
           </Link>
         </Content>
-        <Menu 
-        className='lg:block hidden'
-        disabledOverflow
+        <Menu
+          className="lg:block hidden"
+          disabledOverflow
           theme="dark"
           mode="horizontal"
           selectedKeys={[pathname]}
@@ -42,12 +74,32 @@ const onClose = () => {
               <Link href={item.href}>{item.label}</Link>
             </Menu.Item>
           ))}
- 
+
+          {/* {session ? (
+            <Button
+              type="primary"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Sign Out
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => {
+                router.push("/login");
+              }}
+            >
+              Sign In / register
+            </Button>
+          )} */}
         </Menu>
-        <Button type='primary' className="lg:hidden">
-              <MenuOutlined />
+
+        <Button type="primary" className="lg:hidden" onClick={showDrawer}>
+          <MenuOutlined />
         </Button>
-        <Drawer title="Menu" placement="right" >
+        <Drawer title="Menu" placement="right" onClose={onClose} visible={open}>
           <Menu
             theme="light"
             mode="vertical"
@@ -62,7 +114,6 @@ const onClose = () => {
           </Menu>
         </Drawer>
       </Header>
-
     </Layout>
   );
 };
