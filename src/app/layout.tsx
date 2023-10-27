@@ -5,6 +5,7 @@ import './globals.css'
 import Providers from '@/lib/Providers'
 import React from 'react'
 import PublicHeader from '@/components/view/Header/PublicHeader'
+import FooterComponent from '@/components/view/Footer/Footer'
 
 
 
@@ -12,15 +13,12 @@ export default function RootLayout({children}:{children:React.ReactNode}) {
 
   return (
     <html lang="en">
-          <Providers >
-       
-      <body >
-       
-        {children}
+      <body>
+        <Providers>
+          {children}
+          <FooterComponent />
+        </Providers>
       </body>
-
-      
-          </Providers>
       
     </html>
   )
