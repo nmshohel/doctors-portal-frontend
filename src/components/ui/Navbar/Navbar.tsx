@@ -1,15 +1,23 @@
 "use client"
-import React from 'react';
-import {  Layout, Menu, theme,Typography  } from 'antd';
+import React, { useState } from 'react';
+import {  Button, Drawer, Layout, Menu, theme,Typography  } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { MenuOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Header, Content, Footer } = Layout;
 
 const Navbar = ({items}:{items:{key:number,label:string,href:string}[]}) => {
 const pathname=usePathname()
+const [open, setOpen] = useState(false);
+const showDrawer = () => {
+  setOpen(true);
+};
 
+const onClose = () => {
+  setOpen(false);
+};
   return (
     <Layout className="layout">
       <Header className="flex items-center">
@@ -22,7 +30,9 @@ const pathname=usePathname()
             </Title>
           </Link>
         </Content>
-        <Menu disabledOverflow
+        <Menu 
+        className='lg:block hidden'
+        disabledOverflow
           theme="dark"
           mode="horizontal"
           selectedKeys={[pathname]}
@@ -34,6 +44,23 @@ const pathname=usePathname()
           ))}
  
         </Menu>
+        <Button type='primary' className="lg:hidden">
+              <MenuOutlined />
+        </Button>
+        <Drawer title="Menu" placement="right" >
+          <Menu
+            theme="light"
+            mode="vertical"
+            selectedKeys={[pathname]}
+            style={{ borderRight: 0 }}
+          >
+            {items?.map((item) => (
+              <Menu.Item key={item.href}>
+                <Link href={item.href}>{item.label}</Link>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Drawer>
       </Header>
 
     </Layout>

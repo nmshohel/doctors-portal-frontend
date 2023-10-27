@@ -4,7 +4,7 @@ import React from 'react'
 const AdminHeader = () => {
     const items=[
         {key:1, label:"Admins", href:'/admins'},
-        {key:1, label:"My Profile", href:'/admins/my-profile'},
+        {key:2, label:"My Profile", href:'/admins/my-profile'},
       
     ]
   return (
